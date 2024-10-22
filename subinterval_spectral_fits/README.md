@@ -1,0 +1,1 @@
+This folder contains images of the autocorrelation, power spectral density, and fitted parameters in code/process/spectral_analysis_turbulence.py when "plot_spectral_fits" is set to "True".

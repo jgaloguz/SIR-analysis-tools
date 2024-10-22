@@ -1,0 +1,1 @@
+This is the automated output folder for most results. Some output files may have to be manually moved to this folder.

@@ -1,0 +1,1 @@
+This folder contains images of the sector boundaries identified in code/process/find_SBs.py when "plot_SB_events" is set to "True".

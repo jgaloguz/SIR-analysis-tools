@@ -1,0 +1,1 @@
+This directory contains all the algorithms in this repository. The preprocess subfolder contains the codes used to clean the data. The process subfolder houses the actual data analysis routines. The postprocess subfolder holds the programs used for plotting.
