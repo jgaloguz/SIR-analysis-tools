@@ -52,7 +52,7 @@ diff2_kappa_perp_FLRW_alt = diff2_diff_coeffs_data[:,9]
 
 # Plot
 fig = plt.figure(figsize=(12, 6), layout='tight')
-fig.suptitle('Diffusion Coefficients Superposed Epoch Analysis', fontsize=24)
+# fig.suptitle('Diffusion Coefficients Superposed Epoch Analysis', fontsize=24)
 ax1 = fig.add_subplot(231, projection='rectilinear')
 
 ax1.plot(GCR_epoch_time, GCR1_avgpct, 'b-')
