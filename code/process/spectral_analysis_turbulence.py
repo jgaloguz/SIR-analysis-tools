@@ -411,8 +411,6 @@ for FD_idx in range(n_FD):
 
 fitted_params_file.close()
 
-exit(1)
-
 # Normalize by number of samples
 bfld_turb_eng_dens_avg = np.divide(bfld_turb_eng_dens_avg,sea_counts)
 if corr_calc_method == 0 or corr_calc_method == 2:
