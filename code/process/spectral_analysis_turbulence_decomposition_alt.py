@@ -243,8 +243,8 @@ P_yy_P_xx_seg_avg = [[] for _ in range(n_segs_plot)]
 P_yy_P_xx_seg_std = [[] for _ in range(n_segs_plot)]
 for idx in range(n_segs_plot):
    seg = int((idx + 0.5) * (n_segs / n_segs_plot))
-   P_yy_P_xx_seg_avg[idx] = Prat_segs_ang_bins_avg[seg,:]
-   P_yy_P_xx_seg_std[idx] = Prat_segs_ang_bins_std[seg,:]
+   P_yy_P_xx_seg_avg[idx] = Prat_segs_ang_bins_avg[seg,:].copy()
+   P_yy_P_xx_seg_std[idx] = Prat_segs_ang_bins_std[seg,:].copy()
    for ang in range(n_ang_bins):
       P_yy_P_xx_seg_std[idx][ang] = P_yy_P_xx_seg_std[idx][ang] / np.sqrt(np.size(Prat_segs_ang_bins[seg][ang]))
    ax1.errorbar(np.rad2deg(theta_BV_ang_bins), P_yy_P_xx_seg_avg[idx], yerr=P_yy_P_xx_seg_std[idx], fmt='o', c=colors[idx])
@@ -288,7 +288,7 @@ for ang in range(n_ang_bins):
    file.write("{:18.6f}".format(theta_BV_ang_bins[ang]))
    for seg in range(n_segs):
       file.write("{:12.3e}".format(Prat_segs_ang_bins_avg[seg][ang]))
-      file.write("{:12.3e}".format(Prat_segs_ang_bins_std[seg][ang]))
+      file.write("{:12.3e}".format(Prat_segs_ang_bins_std[seg][ang]/np.sqrt(np.size(Prat_segs_ang_bins[seg][ang]))))
    file.write("\n")
 file.close()
 print("Alternate turbulence decomposition results saved to disk.")
