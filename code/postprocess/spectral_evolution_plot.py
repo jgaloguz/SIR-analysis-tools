@@ -37,23 +37,23 @@ SIR1_inertial_range_slope_avg = SIR1_micro_data[:,5]
 
 # Extract parameters
 N_micro = np.size(epoch_time_micro)
-B_var_slow = np.mean(SIR1_bfld_eng_avg[N_micro//4:N_micro//2])
-B_var_fast = np.mean(SIR1_bfld_eng_avg[N_micro//4:N_micro//2])
-lc_slow = np.mean(SIR1_corr_length_avg[N_micro//4:N_micro//2])
-lc_fast = np.mean(SIR1_corr_length_avg[N_micro//2:3*N_micro//2])
-lb_slow = np.mean(SIR1_bend_length_avg[N_micro//4:N_micro//2])
-lb_fast = np.mean(SIR1_bend_length_avg[N_micro//2:3*N_micro//2])
-inject_slow = np.mean(SIR1_injection_range_slope_avg[N_micro//4:N_micro//2])
-inject_fast = np.mean(SIR1_injection_range_slope_avg[N_micro//2:3*N_micro//2])
-inert_slow = np.mean(SIR1_inertial_range_slope_avg[N_micro//4:N_micro//2])
-inert_fast = np.mean(SIR1_inertial_range_slope_avg[N_micro//2:3*N_micro//2])
+B_var_slow = np.mean(SIR1_bfld_eng_avg[N_micro//8:3*N_micro//8])
+B_var_fast = np.mean(SIR1_bfld_eng_avg[5*N_micro//8:7*N_micro//8])
+lc_slow = np.mean(SIR1_corr_length_avg[N_micro//8:3*N_micro//8])
+lc_fast = np.mean(SIR1_corr_length_avg[5*N_micro//8:7*N_micro//8])
+lb_slow = np.mean(SIR1_bend_length_avg[N_micro//8:3*N_micro//8])
+lb_fast = np.mean(SIR1_bend_length_avg[5*N_micro//8:7*N_micro//8])
+inject_slow = np.mean(SIR1_injection_range_slope_avg[N_micro//8:3*N_micro//8])
+inject_fast = np.mean(SIR1_injection_range_slope_avg[5*N_micro//8:7*N_micro//8])
+inert_slow = np.mean(SIR1_inertial_range_slope_avg[N_micro//8:3*N_micro//8])
+inert_fast = np.mean(SIR1_inertial_range_slope_avg[5*N_micro//8:7*N_micro//8])
 f_min = 1.0 / dt / n_pts
 f_max = 1.0 / dt / 2.0
 N_macro = np.size(epoch_time_macro)
-k_min_slow = f_min / np.mean(SIR1_Vmag_avg[N_macro//4:N_macro//2]) / Vmag_conv
-k_min_fast= f_min / np.mean(SIR1_Vmag_avg[N_macro//2:3*N_macro//4]) / Vmag_conv
-k_max_slow = f_max / np.mean(SIR1_Vmag_avg[N_macro//4:N_macro//2]) / Vmag_conv
-k_max_fast= f_max / np.mean(SIR1_Vmag_avg[N_macro//2:3*N_macro//4]) / Vmag_conv
+k_min_slow = f_min / np.mean(SIR1_Vmag_avg[N_macro//8:3*N_macro//8]) / Vmag_conv
+k_min_fast= f_min / np.mean(SIR1_Vmag_avg[5*N_macro//8:7*N_macro//8]) / Vmag_conv
+k_max_slow = f_max / np.mean(SIR1_Vmag_avg[N_macro//8:3*N_macro//8]) / Vmag_conv
+k_max_fast= f_max / np.mean(SIR1_Vmag_avg[5*N_macro//8:7*N_macro//8]) / Vmag_conv
 
 k_slow = np.array([k_min_slow, 1.0 / lb_slow, k_max_slow])
 k_fast = np.array([k_min_fast, 1.0 / lb_fast, k_max_fast])
@@ -67,7 +67,7 @@ inert_fast_pls = inert_fast + 1.0
 dB2_fast = (k_fast[1]**inject_fast_pls - k_fast[0]**inject_fast_pls) / inject_fast_pls \
          + (k_fast[2]**inert_fast_pls - k_fast[1]**inert_fast_pls) / inert_fast_pls
 
-A2_slow = B_var_slow / dB2_slow
+A2_slow = 3.0 * B_var_slow / dB2_slow
 A2_fast = B_var_fast / dB2_fast
 
 P_slow = A2_slow * np.array([(k_min_slow * lb_slow)**inject_slow, 1.0, (k_max_slow * lb_slow)**inert_slow])
@@ -86,6 +86,7 @@ ax1.axvline(1.0 / lc_fast, c='r', linestyle='--', linewidth=2)
 ax1.scatter([1.0 / lb_slow], [A2_slow], s=100.0, c='k')
 ax1.scatter([1.0 / lb_fast], [A2_fast], s=100.0, c='r')
 ax1.set_xlim(1e-12,1e-10)
+ax1.set_ylim(1e-20,4e-17)
 ax1.tick_params(left = False, labelleft = False, bottom = False, labelbottom = False)
 ax1.minorticks_off()
 
