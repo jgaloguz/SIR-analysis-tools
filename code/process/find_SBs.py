@@ -7,7 +7,7 @@ import sys
 import os
 
 # Whether or not to make plots
-plot_SB_events = False
+plot_SB_events = True
 plot_SB_histogram = False
 
 # Import clean data
@@ -102,17 +102,17 @@ for FD_idx in range(n_FD):
    for SB_idx in SB_idx_list:
       SB_epoch_list.append((SB_idx - half_n_pts) / 1350)
 
-if plot_SB_events:
+   if plot_SB_events:
 # Quick plot to visually assess performance of algorithm
       fig = plt.figure(figsize=(18, 6), layout='tight')
       plt.scatter(epoch_time, BV_ang_cos_CIR[sector_width:-sector_width], s=1)
       plt.plot(epoch_time, denoised_BV_ang_cos_CIR[sector_width:-sector_width],'k', linewidth=2)
       # plt.title('Candidate Sector Crossings for Event {:d} ({:d}-{:d})'.format(FD_idx+1,year_start,year_end), fontsize=28)
-      plt.ylabel('$\\cos \\theta_{B}$', fontsize=20)
-      plt.xlabel('Epoch', fontsize=20)
+      plt.ylabel('$\\cos \\theta_{B}$', fontsize=24)
+      plt.xlabel('Epoch', fontsize=24)
       plt.xlim(-4.0,4.0)
       plt.ylim(-1.05,1.05)
-      plt.tick_params(labelsize=20)
+      plt.tick_params(labelsize=24)
       plt.axhline(abs_eps, color='g', linestyle=':')
       plt.axhline(-abs_eps, color='g', linestyle=':')
       for SB_idx in SB_idx_list:

@@ -165,6 +165,23 @@ ax2.tick_params(axis='y', labelsize=16)
 plt.show()
 plt.close(fig)
 
+fig = plt.figure(figsize=(12, 10), layout='tight')
+fig.suptitle('Superposed Epoch Analysis', fontsize=24)
+
+ax1 = fig.add_subplot(111, projection='rectilinear')
+ax1.plot(epoch_time, (vfld_turb_eng_dens_avg - alfv_turb_eng_dens_avg) / (vfld_turb_eng_dens_avg + alfv_turb_eng_dens_avg))
+ax1.set_xlabel('Epoch (days)', fontsize=20)
+ax1.set_ylabel('MHD Normalized Residual Energy', fontsize=20)
+ax1.set_xlim(-4.0, 4.0)
+ax1.axvline(0.0, color='k')
+ax1.tick_params(axis='x', labelsize=16)
+ax1.tick_params(axis='y', labelsize=16)
+
+plt.show()
+plt.close(fig)
+
+print(np.mean((vfld_turb_eng_dens_avg - alfv_turb_eng_dens_avg) / (vfld_turb_eng_dens_avg + alfv_turb_eng_dens_avg)))
+
 # Output results
 if remove_SB:
    SB_label = "without_SBs_"

@@ -23,9 +23,9 @@ remove_SB = True
 # Flag to retry failed fits with user input (or not)
 retry_failed_fits = False
 # Flag to plot spectral fits (or not)
-plot_spectral_fits = False
+plot_spectral_fits = True
 # Flag to convert to k (perpendicular)-spectrum using Taylor's hypothesis
-convert_spectrum_TH = True
+convert_spectrum_TH = False
 
 # Linear function
 def neg_exp(x, a):
@@ -363,9 +363,9 @@ for FD_idx in range(n_FD):
                   # plt.text(corr_time0 * 1.1, 0.6, "$\\tau_S = {:d}$ s".format(int(corr_time0)), color='k', fontsize=20)
                if corr_calc_method == 1 or corr_calc_method == 2:
                   plt.plot(time_lag[:AC_pos_lag_idx],neg_exp(time_lag[:AC_pos_lag_idx],*opt_params), linestyle=':', linewidth=3, label="Exp Fit")
-               plt.ylabel("Normalized Autocorrelation", fontsize=20)
-               plt.xlabel("Lag (s)", fontsize=20)
-               plt.tick_params(labelsize=20)
+               plt.ylabel("Normalized Autocorrelation", fontsize=24)
+               plt.xlabel("Lag (s)", fontsize=24)
+               plt.tick_params(labelsize=24)
                plt.savefig("subinterval_spectral_fits/AC_event_{:03d}_subinterval_{:03d}.png".format(FD_idx+1,bin_idx+1))
                plt.close(fig)
 
@@ -374,15 +374,15 @@ for FD_idx in range(n_FD):
                if fitting_method == 0 or fitting_method == 2:
                   plt.loglog(freq_range1,np.exp(power_law(freq_range1,*opt_params1)), color='tab:orange', linestyle='--', linewidth=3, label="Inj Range Fit")
                   plt.loglog(freq_range2,np.exp(power_law(freq_range2,*opt_params2)), color='tab:red', linestyle='--', linewidth=3, label="Inr Range Fit")
-                  # plt.text(3e-5, 2e5, "$\\alpha_0 = {:.2f}$".format(break_slope1), color='tab:orange', fontsize=20)
-                  # plt.text(1.5e-3, 8e3, "$\\alpha_1 = {:.2f}$".format(break_slope2), color='tab:red', fontsize=20)
-                  # plt.text(break_freq * 1.1, 2e1, "$f_b = {:.2E}$ Hz".format(break_freq), color='k', fontsize=20)
+                  # plt.text(3e-5, 2e5, "$\\alpha_0 = {:.2f}$".format(break_slope1), color='tab:orange', fontsize=24)
+                  # plt.text(1.5e-3, 8e3, "$\\alpha_1 = {:.2f}$".format(break_slope2), color='tab:red', fontsize=24)
+                  # plt.text(break_freq * 1.1, 2e1, "$f_b = {:.2E}$ Hz".format(break_freq), color='k', fontsize=24)
                   plt.axvline(break_freq, color="k", linestyle='--', linewidth=3)
                if fitting_method == 1 or fitting_method == 2:
                   plt.loglog(freq_range3,np.exp(bent_power_law(freq_range3,*opt_params3)), linestyle=':', linewidth=3, label="Inj+Inr Ranges Fit")
-               plt.ylabel("Power Spectrum (nT$^2$s)", fontsize=20)
-               plt.xlabel("Frequency (Hz)", fontsize=20)
-               plt.tick_params(labelsize=20)
+               plt.ylabel("Power Spectrum (nT$^2$s)", fontsize=24)
+               plt.xlabel("Frequency (Hz)", fontsize=24)
+               plt.tick_params(labelsize=24)
                plt.savefig("subinterval_spectral_fits/PS_event_{:03d}_subinterval_{:03d}.png".format(FD_idx+1,bin_idx+1))
                plt.close(fig)
 
