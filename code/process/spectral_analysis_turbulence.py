@@ -23,7 +23,7 @@ remove_SB = True
 # Flag to retry failed fits with user input (or not)
 retry_failed_fits = False
 # Flag to plot spectral fits (or not)
-plot_spectral_fits = True
+plot_spectral_fits = False
 # Flag to convert to k (perpendicular)-spectrum using Taylor's hypothesis
 convert_spectrum_TH = False
 
@@ -111,7 +111,8 @@ bin_half_width = bin_full_width // 2 # half of bin_full_width
 bin_disp = 56 # number of data point shift between each subinterval
 n_intervals = n_pts // bin_disp + 1 # number of (overlapping) subintervals
 bin_pad = (n_pts % bin_disp) // 2 # number of datapoints to pad on first and last subinterval centers
-missing_threshold = int(0.2 * bin_full_width) # threshold of number of missing datapoints above which interval is discarded 
+missing_threshold = int(0.1 * bin_full_width) # threshold of number of missing datapoints above which interval is discarded 
+B_missing_CIR_global = 0 # largest number of missing datapoints within any interval
 dt = 64.0 # Sampling time
 time_lag = dt * np.arange(bin_full_width)
 freq_range = np.fft.rfftfreq(bin_full_width, d=dt)[1:] # full frequency range
@@ -214,7 +215,8 @@ for FD_idx in range(n_FD):
          fitted_params_file.write("    MISSING: SB overlap\n")
       else:
 # check missing data threshold
-         if np.sum(B_missing_CIR[bin_left:bin_right+1] > missing_threshold):
+         B_missing_CIR_total = np.sum(B_missing_CIR[bin_left:bin_right+1])
+         if B_missing_CIR_total > missing_threshold:
             fitted_params_file.write("    MISSING: missing data\n")
             continue
 
@@ -335,6 +337,9 @@ for FD_idx in range(n_FD):
                   try_to_fit = False
 
          if use_sample:
+            if B_missing_CIR_global < B_missing_CIR_total:
+               B_missing_CIR_global = B_missing_CIR_total
+
 # Extract relevant parameters
             if fitting_method == 0 or fitting_method == 2:
                break_freq = (opt_params2[0]/opt_params1[0])**(1.0/(opt_params1[1]-opt_params2[1]))
@@ -518,3 +523,5 @@ for bin_idx in range(n_intervals):
    file.write("\n")
 file.close()
 print("Superposed epoch analysis results for turbulent quantities saved to disk.")
+
+print("Largest number of missing datapoints within used subintervals:", B_missing_CIR_global)
