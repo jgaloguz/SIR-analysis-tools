@@ -21,7 +21,7 @@ elif date_range == 2:
 else:
    print("Invalid choice. Must choose 1 or 2.")
    exit(1)
-file = open("clean_data/omni_data_clean_" + str(year_start) + "-" + str(year_end) + ".lst", "r")
+file = open("clean_data/MAG_SWEPAM_DATA_clean_" + str(year_start) + "-" + str(year_end) + ".txt", "r")
 line = file.readline()
 while line:
    data = line.split()
