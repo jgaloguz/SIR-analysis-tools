@@ -24,7 +24,7 @@ year_CR = [] # year (float) array
 CR_data = [[] for _ in range(len(labels_CR))] # Solar wind data inputs
 year_start = int(sys.argv[1]) # Beginning year of clean data
 year_end = year_start+3 # Final year of clean data
-event_idx = int(sys.argv[2]) # Index of event to plot
+event_idx = int(sys.argv[2])-1 # Index of event to plot
 
 # Solar wind
 file = open("clean_data/MAG_SWEPAM_DATA_clean_" + str(year_start) + "-" + str(year_end) + ".txt", "r")
@@ -101,10 +101,11 @@ for i in range(half_avg_width, n_data-half_avg_width):
 
 date_FD = event_dates_FD[event_idx]
 date_SI = event_dates_SI[event_idx]
+year = int(date_FD)
 date_FD_dt = float_year_to_datetime(date_FD)
 date_SI_dt = float_year_to_datetime(date_SI)
-date_pls = float_year_to_datetime(date_FD + 2.6/365.25)
-date_mns = float_year_to_datetime(date_FD - 3.4/365.25)
+date_pls = float_year_to_datetime(date_FD + 3.5/365.25)
+date_mns = float_year_to_datetime(date_FD - 2.5/365.25)
 year_SW_dt = [float_year_to_datetime(d) for d in year_SW]
 year_CR_dt = [float_year_to_datetime(d) for d in year_CR]
 date_format = mdates.DateFormatter('%m/%d')
@@ -115,10 +116,10 @@ fig = plt.figure(figsize=(16, 8), layout='tight')
 ax1 = fig.add_subplot(221, projection='rectilinear')
 
 ax1.plot(year_SW_dt, Vmag, 'b-')
-ax1.set_xlabel('Date (month/day of 2008)', fontsize=20)
+ax1.set_xlabel('Date (month/day of {:d})'.format(year), fontsize=20)
 ax1.set_ylabel('$V$ (km/s)', fontsize=20)
 ax1.set_xlim(date_mns, date_pls)
-ax1.set_ylim(275.0, 650.0)
+ax1.set_ylim(225.0, 775.0)
 ax1.tick_params(axis='x', labelsize=20)
 ax1.tick_params(axis='y', labelsize=20)
 ax1.xaxis.set_major_formatter(date_format)
@@ -126,10 +127,10 @@ ax1.xaxis.set_major_formatter(date_format)
 ax2 = fig.add_subplot(222, projection='rectilinear')
 
 ax2.plot(year_SW_dt, Vmag_diff, 'b-')
-ax2.set_xlabel('Date (month/day of 2008)', fontsize=20)
+ax2.set_xlabel('Date (month/day of {:d})'.format(year), fontsize=20)
 ax2.set_ylabel('$\\Delta V$ (km/s)', fontsize=20)
 ax2.set_xlim(date_mns, date_pls)
-ax2.set_ylim(-100.0, 225.0)
+ax2.set_ylim(-160.0, 270.0)
 ax2.axvline(date_FD_dt, color='r', linestyle='--')
 ax2.axvline(date_SI_dt, color='k', linestyle='--')
 ax2.tick_params(axis='x', labelsize=20)
@@ -139,10 +140,10 @@ ax2.xaxis.set_major_formatter(date_format)
 ax3 = fig.add_subplot(223, projection='rectilinear')
 
 ax3.plot(year_CR_dt, CR_cts, 'b-')
-ax3.set_xlabel('Date (month/day of 2008)', fontsize=20)
+ax3.set_xlabel('Date (month/day of {:d})'.format(year), fontsize=20)
 ax3.set_ylabel('GCR counts (c/s)', fontsize=20)
 ax3.set_xlim(date_mns, date_pls)
-ax3.set_ylim(390.0, 420.0)
+ax3.set_ylim(355.0, 390.0)
 ax3.tick_params(axis='x', labelsize=20)
 ax3.tick_params(axis='y', labelsize=20)
 ax3.xaxis.set_major_formatter(date_format)
@@ -150,10 +151,10 @@ ax3.xaxis.set_major_formatter(date_format)
 ax4 = fig.add_subplot(224, projection='rectilinear')
 
 ax4.plot(year_CR_dt, -CR_diff, 'b-')
-ax4.set_xlabel('Date (month/day of 2008)', fontsize=20)
+ax4.set_xlabel('Date (month/day of {:d})'.format(year), fontsize=20)
 ax4.set_ylabel('$\\Delta$ GCR counts (c/s)', fontsize=20)
 ax4.set_xlim(date_mns, date_pls)
-ax4.set_ylim(-18.0, 8.0)
+ax4.set_ylim(-18.0, 10.0)
 ax4.axvline(date_FD_dt, color='r', linestyle='--')
 ax4.axvline(date_SI_dt, color='k', linestyle='--')
 ax4.tick_params(axis='x', labelsize=20)
