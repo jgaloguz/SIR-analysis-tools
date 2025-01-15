@@ -4,6 +4,13 @@ import matplotlib.pyplot as plt
 import scipy.signal as spsig
 import numpy as np
 
+# Running average with shrinking window size around edges of data
+def edge_run_avg(mod_array, org_array, window_size):
+   hws = window_size//2
+   for i in range(hws,0,-1):
+      mod_array[i] = np.mean(org_array[:i+hws])
+      mod_array[-i] = np.mean(org_array[-i-hws:])
+
 # Import SEA analysis results
 SIR1_data = np.loadtxt("output/SEA_macro_2007-2010.lst")
 not_SIR1_data = np.loadtxt("output/SEA_macro_2007-2010_random.lst")
@@ -11,15 +18,21 @@ SIR2_data = np.loadtxt("output/SEA_macro_2018-2021.lst")
 not_SIR2_data = np.loadtxt("output/SEA_macro_2018-2021_random.lst")
 
 # Smooth data
-window_size = 56 # Window size for running average
+window_size = 225 # Window size for running average
 poly_ord = 0 # Polynomial order: 0,1 = simple running average
 epoch_time = SIR1_data[:,0]
 SIR1_Bmag_avg = spsig.savgol_filter(SIR1_data[:,2], window_size, poly_ord)
+edge_run_avg(SIR1_Bmag_avg, SIR1_data[:,2], window_size)
 SIR1_Vmag_avg = spsig.savgol_filter(SIR1_data[:,4], window_size, poly_ord)
+edge_run_avg(SIR1_Vmag_avg, SIR1_data[:,4], window_size)
 SIR1_Np_avg = spsig.savgol_filter(SIR1_data[:,8], window_size, poly_ord)
+edge_run_avg(SIR1_Np_avg, SIR1_data[:,8], window_size)
 SIR1_Tp_avg = spsig.savgol_filter(SIR1_data[:,10] / 1e3, window_size, poly_ord)
+edge_run_avg(SIR1_Tp_avg, SIR1_data[:,10] / 1e3, window_size)
 SIR1_Pp_avg = spsig.savgol_filter(SIR1_data[:,12] * 1e12, window_size, poly_ord)
+edge_run_avg(SIR1_Pp_avg, SIR1_data[:,12] * 1e12, window_size)
 SIR1_beta_avg = spsig.savgol_filter(SIR1_data[:,14], window_size, poly_ord)
+edge_run_avg(SIR1_beta_avg, SIR1_data[:,14], window_size)
 not_SIR1_Bmag_avg = spsig.savgol_filter(not_SIR1_data[:,1], window_size, poly_ord)
 not_SIR1_Bmag_std = spsig.savgol_filter(not_SIR1_data[:,2], window_size, poly_ord)
 not_SIR1_Vmag_avg = spsig.savgol_filter(not_SIR1_data[:,3], window_size, poly_ord)
@@ -29,11 +42,17 @@ not_SIR1_Np_std = spsig.savgol_filter(not_SIR1_data[:,8], window_size, poly_ord)
 not_SIR1_Tp_avg = spsig.savgol_filter(not_SIR1_data[:,9] / 1e3, window_size, poly_ord)
 not_SIR1_Tp_std = spsig.savgol_filter(not_SIR1_data[:,10] / 1e3, window_size, poly_ord)
 SIR2_Bmag_avg = spsig.savgol_filter(SIR2_data[:,2], window_size, poly_ord)
+edge_run_avg(SIR2_Bmag_avg, SIR2_data[:,2], window_size)
 SIR2_Vmag_avg = spsig.savgol_filter(SIR2_data[:,4], window_size, poly_ord)
+edge_run_avg(SIR2_Vmag_avg, SIR2_data[:,4], window_size)
 SIR2_Np_avg = spsig.savgol_filter(SIR2_data[:,8], window_size, poly_ord)
+edge_run_avg(SIR2_Np_avg, SIR2_data[:,8], window_size)
 SIR2_Tp_avg = spsig.savgol_filter(SIR2_data[:,10] / 1e3, window_size, poly_ord)
+edge_run_avg(SIR2_Tp_avg, SIR2_data[:,10] / 1e3, window_size)
 SIR2_Pp_avg = spsig.savgol_filter(SIR2_data[:,12] * 1e12, window_size, poly_ord)
+edge_run_avg(SIR2_Pp_avg, SIR2_data[:,12] * 1e12, window_size)
 SIR2_beta_avg = spsig.savgol_filter(SIR2_data[:,14], window_size, poly_ord)
+edge_run_avg(SIR2_beta_avg, SIR2_data[:,14], window_size)
 
 # Plot
 fig = plt.figure(figsize=(8, 12), layout='tight')
@@ -48,7 +67,7 @@ ax1.plot(epoch_time, SIR2_Bmag_avg, 'c-')
 ax1.set_xlabel('Epoch (days)', fontsize=20)
 ax1.set_ylabel('$B$ (nT)', fontsize=20)
 ax1.set_xlim(-4.0, 4.0)
-ax1.set_ylim(3.0, 11.0)
+ax1.set_ylim(3.0, 10.5)
 ax1.axvline(0.0, color='r', linestyle='--')
 ax1.tick_params(axis='x', labelsize=20)
 ax1.tick_params(axis='y', labelsize=20)
@@ -105,7 +124,7 @@ ax5.plot(epoch_time, SIR2_Pp_avg, 'c-')
 ax5.set_xlabel('Epoch (days)', fontsize=20)
 ax5.set_ylabel('$P_p$ (pPa)', fontsize=20)
 ax5.set_xlim(-4.0, 4.0)
-ax5.set_ylim(2.0, 22.0)
+ax5.set_ylim(2.0, 21.0)
 ax5.axvline(0.0, color='r', linestyle='--')
 ax5.tick_params(axis='x', labelsize=20)
 ax5.tick_params(axis='y', labelsize=20)

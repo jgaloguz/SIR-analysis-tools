@@ -48,17 +48,23 @@ diff2_kappa_para_GJ = diff2_coeffs_data[:,6]
 diff2_kappa_perp_NLGC = diff2_coeffs_data[:,7]
 
 # Plot
+window_size = 4 # Window size for running average
 fig = plt.figure(figsize=(12, 6), layout='tight')
 # fig.suptitle('Diffusion Coefficients Superposed Epoch Analysis', fontsize=20)
 ax1 = fig.add_subplot(231, projection='rectilinear')
 
-ax1.plot(GCR_epoch_time, GCR1_avgpct, 'b-')
+GCR1_avgpct_plot = spsig.savgol_filter(GCR1_avgpct, window_size, 0)
+edge_run_avg(GCR1_avgpct_plot, GCR1_avgpct, window_size)
+GCR2_avgpct_plot = spsig.savgol_filter(GCR2_avgpct, window_size, 0)
+edge_run_avg(GCR2_avgpct_plot, GCR2_avgpct, window_size)
+
+ax1.plot(GCR_epoch_time, GCR1_avgpct_plot, 'b-')
 ax1.plot(GCR_epoch_time, not_GCR1_avgpct, 'g--')
 ax1.plot(GCR_epoch_time, not_GCR1_avgpct+2.0*not_GCR1_stdpct, 'g:')
 ax1.plot(GCR_epoch_time, not_GCR1_avgpct-2.0*not_GCR1_stdpct, 'g:')
-ax1.plot(GCR_epoch_time, GCR2_avgpct, 'c-')
+ax1.plot(GCR_epoch_time, GCR2_avgpct_plot, 'c-')
 ax1.set_xlabel('Epoch (days)', fontsize=20)
-ax1.set_ylabel('%$\\Delta$ >120 MeV H$^+$ (c/s)', fontsize=20)
+ax1.set_ylabel('GCR change (%)', fontsize=20)
 ax1.set_xlim(-4.0, 4.0)
 ax1.set_ylim(-1.7, 1.7)
 ax1.axvline(0.0, color='r', linestyle='--')
@@ -67,10 +73,10 @@ ax1.tick_params(axis='y', labelsize=20)
 
 ax2 = fig.add_subplot(232, projection='rectilinear')
 
-diff1_kappa_perp_UNLT_plot = spsig.savgol_filter(diff1_kappa_perp_UNLT, 8, 0)
-edge_run_avg(diff1_kappa_perp_UNLT_plot, diff1_kappa_perp_UNLT, 8)
-diff2_kappa_perp_UNLT_plot = spsig.savgol_filter(diff2_kappa_perp_UNLT, 8, 0)
-edge_run_avg(diff2_kappa_perp_UNLT_plot, diff2_kappa_perp_UNLT, 8)
+diff1_kappa_perp_UNLT_plot = spsig.savgol_filter(diff1_kappa_perp_UNLT, window_size, 0)
+edge_run_avg(diff1_kappa_perp_UNLT_plot, diff1_kappa_perp_UNLT, window_size)
+diff2_kappa_perp_UNLT_plot = spsig.savgol_filter(diff2_kappa_perp_UNLT, window_size, 0)
+edge_run_avg(diff2_kappa_perp_UNLT_plot, diff2_kappa_perp_UNLT, window_size)
 
 ax2.plot(diff_epoch_time, diff1_kappa_perp_UNLT_plot / k0_perp, 'b', linestyle='-')
 ax2.plot(diff_epoch_time, diff2_kappa_perp_UNLT_plot / k0_perp, 'c', linestyle='-')
@@ -85,10 +91,10 @@ ax2.text(0.95, 0.9, "UNLT", color='k', fontsize=20, horizontalalignment='right',
 
 ax3 = fig.add_subplot(233, projection='rectilinear')
 
-diff1_kappa_para_QLT_plot = spsig.savgol_filter(diff1_kappa_para_QLT, 8, 0)
-edge_run_avg(diff1_kappa_para_QLT_plot, diff1_kappa_para_QLT, 8)
-diff2_kappa_para_QLT_plot = spsig.savgol_filter(diff2_kappa_para_QLT, 8, 0)
-edge_run_avg(diff2_kappa_para_QLT_plot, diff2_kappa_para_QLT, 8)
+diff1_kappa_para_QLT_plot = spsig.savgol_filter(diff1_kappa_para_QLT, window_size, 0)
+edge_run_avg(diff1_kappa_para_QLT_plot, diff1_kappa_para_QLT, window_size)
+diff2_kappa_para_QLT_plot = spsig.savgol_filter(diff2_kappa_para_QLT, window_size, 0)
+edge_run_avg(diff2_kappa_para_QLT_plot, diff2_kappa_para_QLT, window_size)
 
 ax3.plot(diff_epoch_time, diff1_kappa_para_QLT_plot / k0_para, 'b', linestyle='-')
 ax3.plot(diff_epoch_time, diff2_kappa_para_QLT_plot / k0_para, 'c', linestyle='-')
@@ -103,15 +109,15 @@ ax3.text(0.95, 0.9, "QLT", color='k', fontsize=20, horizontalalignment='right', 
 
 ax4 = fig.add_subplot(234, projection='rectilinear')
 
-diff1_kappa_perp_FLRW_plot = spsig.savgol_filter(diff1_kappa_perp_FLRW, 8, 0)
-edge_run_avg(diff1_kappa_perp_FLRW_plot, diff1_kappa_perp_FLRW, 8)
-diff2_kappa_perp_FLRW_plot = spsig.savgol_filter(diff2_kappa_perp_FLRW, 8, 0)
-edge_run_avg(diff2_kappa_perp_FLRW_plot, diff2_kappa_perp_FLRW, 8)
+diff1_kappa_perp_FLRW_plot = spsig.savgol_filter(diff1_kappa_perp_FLRW, window_size, 0)
+edge_run_avg(diff1_kappa_perp_FLRW_plot, diff1_kappa_perp_FLRW, window_size)
+diff2_kappa_perp_FLRW_plot = spsig.savgol_filter(diff2_kappa_perp_FLRW, window_size, 0)
+edge_run_avg(diff2_kappa_perp_FLRW_plot, diff2_kappa_perp_FLRW, window_size)
 
-diff1_kappa_perp_LZP_plot = spsig.savgol_filter(diff1_kappa_perp_LZP, 8, 0)
-edge_run_avg(diff1_kappa_perp_LZP_plot, diff1_kappa_perp_LZP, 8)
-diff2_kappa_perp_LZP_plot = spsig.savgol_filter(diff2_kappa_perp_LZP, 8, 0)
-edge_run_avg(diff2_kappa_perp_LZP_plot, diff2_kappa_perp_LZP, 8)
+diff1_kappa_perp_LZP_plot = spsig.savgol_filter(diff1_kappa_perp_LZP, window_size, 0)
+edge_run_avg(diff1_kappa_perp_LZP_plot, diff1_kappa_perp_LZP, window_size)
+diff2_kappa_perp_LZP_plot = spsig.savgol_filter(diff2_kappa_perp_LZP, window_size, 0)
+edge_run_avg(diff2_kappa_perp_LZP_plot, diff2_kappa_perp_LZP, window_size)
 
 ax4.plot(diff_epoch_time, diff1_kappa_perp_FLRW_plot / k0_perp, 'b', linestyle='-')
 ax4.plot(diff_epoch_time, diff2_kappa_perp_FLRW_plot / k0_perp, 'c', linestyle='-')
@@ -120,7 +126,7 @@ ax4.plot(diff_epoch_time, diff2_kappa_perp_LZP_plot / k0_perp, 'c', linestyle='-
 ax4.set_xlabel('Epoch (days)', fontsize=20)
 ax4.set_ylabel('$\\kappa_\\perp$ ($\\times 10^{20}$ cm$^2$/s)', fontsize=20)
 ax4.set_xlim(-4.0, 4.0)
-ax4.set_ylim(4.0, 20.0)
+ax4.set_ylim(4.0, 21.0)
 ax4.axvline(0.0, color='r', linestyle='--')
 ax4.tick_params(axis='x', labelsize=20)
 ax4.tick_params(axis='y', labelsize=20)
@@ -128,17 +134,17 @@ ax4.text(0.95, 0.9, "FLRW & LZP", color='k', fontsize=20, horizontalalignment='r
 
 ax5 = fig.add_subplot(235, projection='rectilinear')
 
-diff1_kappa_perp_NLGC_plot = spsig.savgol_filter(diff1_kappa_perp_NLGC, 8, 0)
-edge_run_avg(diff1_kappa_perp_NLGC_plot, diff1_kappa_perp_NLGC, 8)
-diff2_kappa_perp_NLGC_plot = spsig.savgol_filter(diff2_kappa_perp_NLGC, 8, 0)
-edge_run_avg(diff2_kappa_perp_NLGC_plot, diff2_kappa_perp_NLGC, 8)
+diff1_kappa_perp_NLGC_plot = spsig.savgol_filter(diff1_kappa_perp_NLGC, window_size, 0)
+edge_run_avg(diff1_kappa_perp_NLGC_plot, diff1_kappa_perp_NLGC, window_size)
+diff2_kappa_perp_NLGC_plot = spsig.savgol_filter(diff2_kappa_perp_NLGC, window_size, 0)
+edge_run_avg(diff2_kappa_perp_NLGC_plot, diff2_kappa_perp_NLGC, window_size)
 
 ax5.plot(diff_epoch_time, diff1_kappa_perp_NLGC_plot / k0_perp, 'b', linestyle='-')
 ax5.plot(diff_epoch_time, diff2_kappa_perp_NLGC_plot / k0_perp, 'c', linestyle='-')
 ax5.set_xlabel('Epoch (days)', fontsize=20)
 ax5.set_ylabel('$\\kappa_\\perp$ ($\\times 10^{20}$ cm$^2$/s)', fontsize=20)
 ax5.set_xlim(-4.0, 4.0)
-ax5.set_ylim(2.5, 4.5)
+ax5.set_ylim(2.5, 4.75)
 ax5.axvline(0.0, color='r', linestyle='--')
 ax5.tick_params(axis='x', labelsize=20)
 ax5.tick_params(axis='y', labelsize=20)
@@ -146,15 +152,15 @@ ax5.text(0.95, 0.9, "NLGC", color='k', fontsize=20, horizontalalignment='right',
 
 ax6 = fig.add_subplot(236, projection='rectilinear')
 
-diff1_kappa_para_GJ_plot = spsig.savgol_filter(diff1_kappa_para_GJ, 8, 0)
-edge_run_avg(diff1_kappa_para_GJ_plot, diff1_kappa_para_GJ, 8)
-diff2_kappa_para_GJ_plot = spsig.savgol_filter(diff2_kappa_para_GJ, 8, 0)
-edge_run_avg(diff2_kappa_para_GJ_plot, diff2_kappa_para_GJ, 8)
+diff1_kappa_para_GJ_plot = spsig.savgol_filter(diff1_kappa_para_GJ, window_size, 0)
+edge_run_avg(diff1_kappa_para_GJ_plot, diff1_kappa_para_GJ, window_size)
+diff2_kappa_para_GJ_plot = spsig.savgol_filter(diff2_kappa_para_GJ, window_size, 0)
+edge_run_avg(diff2_kappa_para_GJ_plot, diff2_kappa_para_GJ, window_size)
 
-diff1_kappa_para_KJ_plot = spsig.savgol_filter(diff1_kappa_para_KJ, 8, 0)
-edge_run_avg(diff1_kappa_para_KJ_plot, diff1_kappa_para_KJ, 8)
-diff2_kappa_para_KJ_plot = spsig.savgol_filter(diff2_kappa_para_KJ, 8, 0)
-edge_run_avg(diff2_kappa_para_KJ_plot, diff2_kappa_para_KJ, 8)
+diff1_kappa_para_KJ_plot = spsig.savgol_filter(diff1_kappa_para_KJ, window_size, 0)
+edge_run_avg(diff1_kappa_para_KJ_plot, diff1_kappa_para_KJ, window_size)
+diff2_kappa_para_KJ_plot = spsig.savgol_filter(diff2_kappa_para_KJ, window_size, 0)
+edge_run_avg(diff2_kappa_para_KJ_plot, diff2_kappa_para_KJ, window_size)
 
 ax6.plot(diff_epoch_time, diff1_kappa_para_GJ_plot / k0_para, 'b', linestyle='-')
 ax6.plot(diff_epoch_time, diff2_kappa_para_GJ_plot / k0_para, 'c', linestyle='-')
@@ -163,7 +169,7 @@ ax6.plot(diff_epoch_time, diff2_kappa_para_KJ_plot / k0_para, 'c', linestyle='--
 ax6.set_xlabel('Epoch (days)', fontsize=20)
 ax6.set_ylabel('$\\kappa_\\parallel$ ($\\times 10^{22}$ cm$^2$/s)', fontsize=20)
 ax6.set_xlim(-4.0, 4.0)
-ax6.set_ylim(2.0, 7.0)
+ax6.set_ylim(2.0, 7.5)
 ax6.axvline(0.0, color='r', linestyle='--')
 ax6.tick_params(axis='x', labelsize=20)
 ax6.tick_params(axis='y', labelsize=20)
