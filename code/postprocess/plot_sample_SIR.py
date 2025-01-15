@@ -1,4 +1,4 @@
-# This code is meant for a quick visual inspection of cleaned solar wind and magnetic field data.
+# This code produces a plot meant to illustrate the event selection process.
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,6 +7,7 @@ import sys
 from datetime import datetime, timedelta
 import matplotlib.dates as mdates
 
+# Function to convert a date in float of year format to date-time format
 def float_year_to_datetime(year_float):
     year = np.floor(year_float).astype(int)
     remainder = year_float - year
