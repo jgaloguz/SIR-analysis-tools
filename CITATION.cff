@@ -1,0 +1,23 @@
+abstract: "This software contains a series of analysis tools for studying the bulk and turbulent properties of stream interaction regions in solar wind and magnetic field data at 1 au, as well as implications for galactic cosmic ray transport, using a superposed epoch approach."
+authors:
+  - family-names: Alonso Guzman
+    given-names: Juan Gabriel
+    orcid: "https://orcid.org/0000-0001-9581-3167"
+cff-version: 1.2.0
+date-released: "2025-01-17"
+identifiers:
+  - description: "This is the archived snapshot of version 1.0.0 of SIR Analysis Tools"
+    type: doi
+    value: 10.5281/zenodo.14681151
+keywords:
+  - "stream interaction regions"
+  - "solar wind"
+  - "turbulence"
+  - "galactic cosmic rays"
+  - "spacecraft data analysis"
+  - "superposed epoch analysis"
+license: Apache-2.0
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/jgaloguz/SIR-analysis-tools"
+title: "SIR Analysis Tools"
+version: 1.0.0
