@@ -5,3 +5,5 @@ Specifically, the data analyzed was 64s Level 2 (Verified) data from the Magneti
 The code ran without errors using Python 3.13.1 on linux and equipped with the following additional modules: matplotlib 3.10.0, numpy 2.2.1, and scipy 1.15.1.
 
 See the README.md files within each folder and comments within each program for more information.
+
+[![DOI](https://zenodo.org/badge/876831081.svg)](https://doi.org/10.5281/zenodo.14681151)
