@@ -29,6 +29,7 @@ B0 = 5.0e-5
 csc = 1.0 / np.sin(3.0 * np.pi / 5.0)
 k0_para = 1.0e22
 k0_perp = 1.0e20
+a_perp = 0.4
 
 # numerical integration parameters
 Nk = 0
@@ -107,7 +108,7 @@ def integ_kappa_perp_UNLT(B, k_range, k_spect, kappa_para, kappa_perp_init):
    for i in range(maxiter):
       kappa_perp_old = kappa_perp_new
       denom = 4.0 * kappa_perp_old * np.square(k_range) + (v**2 / kappa_para)
-      kappa_perp_new = v**2 / (2.0 * B**2) * sp.integrate.trapezoid(k_spect / denom, k_range)
+      kappa_perp_new = 0.5 * (a_perp * v / B)**2 * sp.integrate.trapezoid(k_spect / denom, k_range)
       if(np.abs(kappa_perp_new - kappa_perp_old) / (np.abs(kappa_perp_new) + np.abs(kappa_perp_old)) < eps):
          break
 
@@ -141,14 +142,13 @@ def kappa_para_QLT_perp_FLRW_LZP_UNLT(folder, n_FD, n_intervals, pct_2D):
             kappa_para_QLT[bin_idx] = kappa_para_QLT[bin_idx] + np.log(kappa_para_QLT_bin)
 # Kappa perpendicular (FLRW)
             kappa2_FL = (0.5 / B**2) * sp.integrate.trapezoid(pct_2D[bin_idx] * k_spect / np.square(k_range), k_range)
-            kappa_perp_FLRW_bin = 0.5 * v * np.sqrt(kappa2_FL)
+            kappa_perp_FLRW_bin = 0.5 * a_perp * v * np.sqrt(kappa2_FL)
             kappa_perp_FLRW[bin_idx] = kappa_perp_FLRW[bin_idx] + np.log(kappa_perp_FLRW_bin)
 # Kappa perpendicular (LZP)
-            kappa_perp_LZP_bin = (0.5 / B**2) * kappa_para_QLT_bin * sp.integrate.trapezoid(pct_2D[bin_idx] * k_spect, k_range)
+            kappa_perp_LZP_bin = 0.5 * (a_perp / B)**2 * kappa_para_QLT_bin * sp.integrate.trapezoid(pct_2D[bin_idx] * k_spect, k_range)
             kappa_perp_LZP[bin_idx] = kappa_perp_LZP[bin_idx] + np.log(kappa_perp_LZP_bin)
 # Kappa perpendicular (UNLT)
-            lambda_para_QLT = 3 * kappa_para_QLT_bin / v
-            kappa_perp_UNLT_bin = integ_kappa_perp_UNLT(B, k_range, pct_2D[bin_idx] * k_spect, lambda_para_QLT, kappa_perp_LZP_bin)
+            kappa_perp_UNLT_bin = integ_kappa_perp_UNLT(B, k_range, pct_2D[bin_idx] * k_spect, kappa_para_QLT_bin, kappa_perp_LZP_bin)
             kappa_perp_UNLT[bin_idx] = kappa_perp_UNLT[bin_idx] + np.log(kappa_perp_UNLT_bin)
 
 # Average over counts

@@ -14,7 +14,6 @@ def edge_run_avg(mod_array, org_array, window_size):
 # conversion factors from data to cgs units
 k0_para = 1.0e22
 k0_perp = 1.0e20
-a_perp = 0.45 # Phenomenological constant
 
 # Import SEA analysis results
 GCR1_data = np.loadtxt("output/SEA_cosray_2007-2010.lst")
@@ -33,16 +32,16 @@ GCR2_avgpct = GCR2_data[:,2]
 
 diff_epoch_time = diff1_coeffs_data[:,0]
 diff1_kappa_para_QLT = diff1_coeffs_data[:,1]
-diff1_kappa_perp_FLRW = diff1_coeffs_data[:,2] * a_perp
-diff1_kappa_perp_LZP = diff1_coeffs_data[:,3] * a_perp**2
-diff1_kappa_perp_UNLT = diff1_coeffs_data[:,4] * a_perp**2
+diff1_kappa_perp_FLRW = diff1_coeffs_data[:,2]
+diff1_kappa_perp_LZP = diff1_coeffs_data[:,3]
+diff1_kappa_perp_UNLT = diff1_coeffs_data[:,4]
 diff1_kappa_para_KJ = diff1_coeffs_data[:,5]
 diff1_kappa_para_GJ = diff1_coeffs_data[:,6]
 diff1_kappa_perp_NLGC = diff1_coeffs_data[:,7]
 diff2_kappa_para_QLT = diff2_coeffs_data[:,1]
-diff2_kappa_perp_FLRW = diff2_coeffs_data[:,2] * a_perp
-diff2_kappa_perp_LZP = diff2_coeffs_data[:,3] * a_perp**2
-diff2_kappa_perp_UNLT = diff2_coeffs_data[:,4] * a_perp**2
+diff2_kappa_perp_FLRW = diff2_coeffs_data[:,2]
+diff2_kappa_perp_LZP = diff2_coeffs_data[:,3]
+diff2_kappa_perp_UNLT = diff2_coeffs_data[:,4]
 diff2_kappa_para_KJ = diff2_coeffs_data[:,5]
 diff2_kappa_para_GJ = diff2_coeffs_data[:,6]
 diff2_kappa_perp_NLGC = diff2_coeffs_data[:,7]
@@ -83,7 +82,7 @@ ax2.plot(diff_epoch_time, diff2_kappa_perp_UNLT_plot / k0_perp, 'c', linestyle='
 ax2.set_xlabel('Epoch (days)', fontsize=20)
 ax2.set_ylabel('$\\kappa_\\perp$ ($\\times 10^{20}$ cm$^2$/s)', fontsize=20)
 ax2.set_xlim(-4.0, 4.0)
-ax2.set_ylim(1.5, 4.5)
+ax2.set_ylim(1.5, 6.0)
 ax2.axvline(0.0, color='r', linestyle='--')
 ax2.tick_params(axis='x', labelsize=20)
 ax2.tick_params(axis='y', labelsize=20)
@@ -126,7 +125,7 @@ ax4.plot(diff_epoch_time, diff2_kappa_perp_LZP_plot / k0_perp, 'c', linestyle='-
 ax4.set_xlabel('Epoch (days)', fontsize=20)
 ax4.set_ylabel('$\\kappa_\\perp$ ($\\times 10^{20}$ cm$^2$/s)', fontsize=20)
 ax4.set_xlim(-4.0, 4.0)
-ax4.set_ylim(4.0, 21.0)
+ax4.set_ylim(3.0, 19.0)
 ax4.axvline(0.0, color='r', linestyle='--')
 ax4.tick_params(axis='x', labelsize=20)
 ax4.tick_params(axis='y', labelsize=20)
