@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/876831081.svg)](https://doi.org/10.5281/zenodo.14681151)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14867883.svg)](https://doi.org/10.5281/zenodo.14867883)
 
 This repository contains a series of analysis tools for studying the bulk and turbulent properties of stream interaction regions in solar wind and magnetic field data at 1 au, as well as implications for galactic cosmic ray transport, using a superposed epoch approach.
 
